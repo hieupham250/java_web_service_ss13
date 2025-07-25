@@ -3,6 +3,7 @@ package ra.edu.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -50,8 +51,8 @@ public class SpringSecurity {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/v1/auth/**").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/api/v1/product").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.GET, "/api/v1/product").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/product").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/product").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
